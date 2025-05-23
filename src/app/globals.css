@@ -1,0 +1,150 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-recursive-sans: var(--font-recursive-sans);
+    --font-recursive-mono: var(--font-recursive-mono);
+  }
+
+  body {
+    font-family: var(--font-recursive-mono);
+    font-variation-settings: "MONO" 1, "CASL" 0, "CRSV" 0.5;
+    font-weight: 400;
+    line-height: 1.6;
+  }
+
+  /* Headings use Sans variant with Linear style */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-recursive-sans);
+    font-variation-settings: "MONO" 0, "CASL" 0, "CRSV" 0;
+    line-height: 1.2;
+    font-weight: 600;
+  }
+
+  h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+  }
+
+  h2 {
+    font-size: 2.25rem;
+    font-weight: 600;
+    margin-bottom: 1.25rem;
+  }
+
+  h3 {
+    font-size: 1.875rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+
+  h4 {
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin-bottom: 0.875rem;
+  }
+
+  p {
+    font-family: var(--font-recursive-mono);
+    font-variation-settings: "MONO" 1, "CASL" 0, "CRSV" 0.5;
+    margin-bottom: 1rem;
+    font-weight: 400;
+  }
+
+  /* List styling */
+  ul {
+    font-family: var(--font-recursive-mono);
+    font-variation-settings: "MONO" 1, "CASL" 0, "CRSV" 0.5;
+    font-weight: 400;
+    padding-left: 0;
+  }
+
+  li {
+    font-family: var(--font-recursive-mono);
+    font-variation-settings: "MONO" 1, "CASL" 0, "CRSV" 0.5;
+    font-weight: 400;
+    position: relative;
+    padding-left: 2rem;
+    list-style: none;
+  }
+
+  li::before {
+    content: "•";
+    position: absolute;
+    left: 0.5rem;
+    color: currentColor;
+    font-weight: 400;
+  }
+}
+
+@layer components {
+  /* Typography utility classes */
+  .font-sans {
+    font-family: var(--font-recursive-sans);
+    font-variation-settings: "MONO" 0, "CASL" 0, "CRSV" 0;
+  }
+
+  .font-mono {
+    font-family: var(--font-recursive-mono);
+    font-variation-settings: "MONO" 1, "CASL" 0, "CRSV" 0.5;
+  }
+
+  /* Special typography styles */
+  .quote-large {
+    font-family: var(--font-recursive-sans);
+    font-variation-settings: "MONO" 0, "CASL" 0.3, "CRSV" 0;
+    font-size: 1.5rem;
+    font-weight: 500;
+    font-style: italic;
+    line-height: 1.4;
+  }
+
+  .section-title {
+    font-family: var(--font-recursive-sans);
+    font-variation-settings: "MONO" 0, "CASL" 1, "CRSV" 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .footnote {
+    font-family: var(--font-recursive-mono);
+    font-variation-settings: "MONO" 1, "CASL" 0, "CRSV" 0.5;
+    font-size: 0.875rem;
+    font-weight: 400;
+    color: #666;
+    line-height: 1.5;
+  }
+
+  .caption {
+    font-family: var(--font-recursive-mono);
+    font-variation-settings: "MONO" 1, "CASL" 0, "CRSV" 0.5;
+    font-size: 0.8rem;
+    font-weight: 400;
+    color: #888;
+    font-style: italic;
+  }
+
+  .code-block {
+    font-family: var(--font-recursive-mono);
+    font-variation-settings: "MONO" 1, "CASL" 0, "CRSV" 0;
+    font-size: 0.875rem;
+    font-weight: 400;
+  }
+
+  /* Special casual heading */
+  .heading-casual {
+    font-family: var(--font-recursive-sans);
+    font-variation-settings: "MONO" 0, "CASL" 1, "CRSV" 0;
+    font-weight: 600;
+  }
+}

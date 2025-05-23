@@ -1,4 +1,6 @@
 import { Analytics } from "@vercel/analytics/react";
+import { recursiveSans, recursiveMono } from "./fonts";
+import "./globals.css";
 
 export default function RootLayout({
   children,
@@ -6,11 +8,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html
+      lang="en"
+      className={`${recursiveSans.variable} ${recursiveMono.variable}`}
+    >
       <head>
-        <title>xzy</title>
+        <title>XZY</title>
       </head>
-      <body>
+      <body className={recursiveMono.className}>
         {children}
         <Analytics />
       </body>
