@@ -1,24 +1,11 @@
-import { Space_Mono } from "next/font/google";
-
-const spaceMono = Space_Mono({
-  weight: "400",
-  subsets: ["latin"],
-  display: "swap",
-});
+import ASCIIName from "@/components/ASCIIName";
+import ThemeToggle from "@/components/ThemeToggle";
 
 export default function Home() {
   return (
-    <p
-      className={spaceMono.className}
-      style={{
-        height: "100vh",
-        margin: 0,
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      xie ziyan
-    </p>
+    <main className="min-h-screen flex items-center justify-center bg-background text-foreground">
+      <ThemeToggle />
+      <ASCIIName />
+    </main>
   );
 }

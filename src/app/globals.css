@@ -6,6 +6,30 @@
   :root {
     --font-recursive-sans: var(--font-recursive-sans);
     --font-recursive-mono: var(--font-recursive-mono);
+
+    /* Light theme colors - Eggshell white + Lapis blue */
+    --background: 32 36% 94%; /* #F6F4ED - Eggshell white */
+    --foreground: 215 54% 35%; /* #295BA8 - Lapis blue */
+    --primary: 215 54% 45%; /* #3674D1 - Brighter lapis */
+    --primary-foreground: 32 36% 94%;
+    --muted: 215 20% 85%;
+    --muted-foreground: 215 54% 25%;
+    --border: 215 20% 80%;
+  }
+
+  .dark {
+    /* Dark theme colors - Sable black + Heather purple */
+    --background: 30 6% 8%; /* #1A1816 - Sable black */
+    --foreground: 270 30% 75%; /* #B3A6C9 - Heather purple */
+    --primary: 270 40% 65%; /* #9B7FC9 - Brighter heather */
+    --primary-foreground: 30 6% 8%;
+    --muted: 270 15% 25%;
+    --muted-foreground: 270 30% 85%;
+    --border: 270 15% 30%;
+  }
+
+  * {
+    border-color: hsl(var(--border));
   }
 
   body {
@@ -13,9 +37,12 @@
     font-variation-settings: "MONO" 1, "CASL" 0, "CRSV" 0.5;
     font-weight: 400;
     line-height: 1.6;
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    transition: background-color 0.3s, color 0.3s;
   }
 
-  /* Headings use Sans variant with Linear style */
+  /* All existing typography styles remain the same */
   h1,
   h2,
   h3,
@@ -59,7 +86,6 @@
     font-weight: 400;
   }
 
-  /* List styling */
   ul {
     font-family: var(--font-recursive-mono);
     font-variation-settings: "MONO" 1, "CASL" 0, "CRSV" 0.5;
@@ -85,8 +111,30 @@
   }
 }
 
+@layer utilities {
+  .text-primary {
+    color: hsl(var(--primary));
+  }
+
+  .text-foreground {
+    color: hsl(var(--foreground));
+  }
+
+  .bg-primary {
+    background-color: hsl(var(--primary));
+  }
+
+  .bg-background {
+    background-color: hsl(var(--background));
+  }
+
+  .border-primary {
+    border-color: hsl(var(--primary));
+  }
+}
+
 @layer components {
-  /* Typography utility classes */
+  /* All existing component styles remain */
   .font-sans {
     font-family: var(--font-recursive-sans);
     font-variation-settings: "MONO" 0, "CASL" 0, "CRSV" 0;
@@ -97,7 +145,6 @@
     font-variation-settings: "MONO" 1, "CASL" 0, "CRSV" 0.5;
   }
 
-  /* Special typography styles */
   .quote-large {
     font-family: var(--font-recursive-sans);
     font-variation-settings: "MONO" 0, "CASL" 0.3, "CRSV" 0;
@@ -121,7 +168,6 @@
     font-variation-settings: "MONO" 1, "CASL" 0, "CRSV" 0.5;
     font-size: 0.875rem;
     font-weight: 400;
-    color: #666;
     line-height: 1.5;
   }
 
@@ -130,7 +176,6 @@
     font-variation-settings: "MONO" 1, "CASL" 0, "CRSV" 0.5;
     font-size: 0.8rem;
     font-weight: 400;
-    color: #888;
     font-style: italic;
   }
 
@@ -141,7 +186,6 @@
     font-weight: 400;
   }
 
-  /* Special casual heading */
   .heading-casual {
     font-family: var(--font-recursive-sans);
     font-variation-settings: "MONO" 0, "CASL" 1, "CRSV" 0;
