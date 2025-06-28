@@ -7,7 +7,7 @@
     --font-recursive-sans: var(--font-recursive-sans);
     --font-recursive-mono: var(--font-recursive-mono);
 
-    /* Light theme colors - Eggshell white + Lapis blue */
+    /* Light theme colors */
     --background: 32 36% 94%; /* #F6F4ED - Eggshell white */
     --foreground: 215 54% 35%; /* #295BA8 - Lapis blue */
     --primary: 215 54% 45%; /* #3674D1 - Brighter lapis */
@@ -18,7 +18,7 @@
   }
 
   .dark {
-    /* Dark theme colors - Sable black + Heather purple */
+    /* Dark theme colors */
     --background: 30 6% 8%; /* #1A1816 - Sable black */
     --foreground: 270 30% 75%; /* #B3A6C9 - Heather purple */
     --primary: 270 40% 65%; /* #9B7FC9 - Brighter heather */
@@ -42,7 +42,7 @@
     transition: background-color 0.3s, color 0.3s;
   }
 
-  /* All existing typography styles remain the same */
+  /* Typography styles */
   h1,
   h2,
   h3,
@@ -134,7 +134,6 @@
 }
 
 @layer components {
-  /* All existing component styles remain */
   .font-sans {
     font-family: var(--font-recursive-sans);
     font-variation-settings: "MONO" 0, "CASL" 0, "CRSV" 0;
