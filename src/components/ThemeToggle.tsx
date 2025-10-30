@@ -18,7 +18,7 @@ export default function ThemeToggle() {
           width="12"
           height="12"
           viewBox="0 0 12 12"
-          className={`absolute inset-0 w-8 h-8 text-[#295BA8] transition-all duration-500 ease-in-out ${
+          className={`absolute top-0 left-[1px] w-8 h-8 text-[#295BA8] transition-all duration-500 ease-in-out ${
             theme === "light"
               ? "opacity-100 scale-100 rotate-0"
               : "opacity-0 scale-75 rotate-12"
@@ -37,7 +37,7 @@ export default function ThemeToggle() {
           viewBox="0 0 47 47"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
-          className={`absolute inset-0 w-8 h-8 transition-all duration-500 ease-in-out ${
+          className={`absolute top-0 left-[1px] w-8 h-8 transition-all duration-500 ease-in-out ${
             theme === "dark"
               ? "opacity-100 scale-100 rotate-0"
               : "opacity-0 scale-75 -rotate-12"
