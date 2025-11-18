@@ -7,6 +7,7 @@ import Image from "next/image";
 
 export default function BioPage() {
   const [showPortrait, setShowPortrait] = useState(false);
+  const [isAnyHovered, setIsAnyHovered] = useState(false);
 
   const projects = [
     {
@@ -150,7 +151,12 @@ export default function BioPage() {
           </div>
 
           {/* Ferris wheel - projects rotating around bio */}
-          <div className="absolute inset-0 pointer-events-none">
+          <div
+            className="absolute inset-0 pointer-events-none transition-transform duration-1000 ease-linear"
+            style={{
+              animation: isAnyHovered ? 'none' : 'ferrisWheel 60s linear infinite',
+            }}
+          >
             {projects.map((project, index) => {
               const angle = angleStep * index - Math.PI / 2; // Start from top
               const x = Math.cos(angle) * radius;
@@ -166,13 +172,26 @@ export default function BioPage() {
                     transform: `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))`,
                   }}
                 >
-                  <ProjectLink {...project} />
+                  <ProjectLink
+                    {...project}
+                    onHoverChange={setIsAnyHovered}
+                  />
                 </div>
               );
             })}
           </div>
         </div>
       </main>
+
+      {/* Grid view link - bottom-left */}
+      <div className="fixed bottom-8 left-8 z-20">
+        <a
+          href="/grid"
+          className="block text-sm font-semibold tracking-wide opacity-70 hover:opacity-100 transition-opacity"
+        >
+          ⊞ GRID
+        </a>
+      </div>
 
       {/* Blog - bottom-right */}
       <div className="fixed bottom-8 right-8 z-20 text-right">

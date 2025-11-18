@@ -10,6 +10,7 @@ interface ProjectLinkProps {
   tags: string[];
   imageSrc: string;
   link: string;
+  onHoverChange?: (isHovered: boolean) => void;
 }
 
 export default function ProjectLink({
@@ -19,23 +20,34 @@ export default function ProjectLink({
   tags,
   imageSrc,
   link,
+  onHoverChange,
 }: ProjectLinkProps) {
   const [isHovered, setIsHovered] = useState(false);
+
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+    onHoverChange?.(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+    onHoverChange?.(false);
+  };
 
   return (
     <>
       {/* Spotlight overlay - dims everything when this project is hovered */}
       {isHovered && (
-        <div className="fixed inset-0 bg-black/60 transition-opacity duration-300 pointer-events-none z-[100]" />
+        <div className="fixed inset-0 bg-black/60 transition-opacity duration-300 pointer-events-none z-[200]" />
       )}
 
       {/* Project keyword link */}
       <div className="relative inline-block whitespace-nowrap">
         <a
           href={link}
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
-          className="relative inline-block text-2xl md:text-3xl font-mono cursor-pointer transition-all duration-200 z-[101]"
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+          className="relative inline-block text-2xl md:text-3xl font-mono cursor-pointer transition-all duration-200 z-[201]"
           style={{
             opacity: isHovered ? 1 : 0.85,
             textShadow: isHovered ? "0 0 20px currentColor" : "none",
@@ -47,9 +59,9 @@ export default function ProjectLink({
         {/* Hover reveal - image and info */}
         {isHovered && (
           <div
-            className="fixed z-[102] pointer-events-none left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+            className="fixed z-[202] pointer-events-none left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
             style={{
-              width: "clamp(320px, 45vw, 550px)",
+              width: "clamp(280px, 35vw, 420px)",
             }}
           >
             <div className="bg-[#FFFBEF] dark:bg-[#302D29] rounded-2xl overflow-hidden border border-[#295BA8]/20 dark:border-[#9B7FC9]/20 shadow-2xl">
