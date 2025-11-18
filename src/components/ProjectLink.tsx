@@ -26,24 +26,19 @@ export default function ProjectLink({
     <>
       {/* Spotlight overlay - dims everything when this project is hovered */}
       {isHovered && (
-        <div
-          className="fixed inset-0 bg-black/60 transition-opacity duration-300 pointer-events-none z-10"
-          style={{ opacity: isHovered ? 1 : 0 }}
-        />
+        <div className="fixed inset-0 bg-black/60 transition-opacity duration-300 pointer-events-none z-[100]" />
       )}
 
       {/* Project keyword link */}
-      <div className="relative inline-block">
+      <div className="relative inline-block whitespace-nowrap">
         <a
           href={link}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
-          className="relative inline-block text-2xl md:text-3xl lg:text-4xl font-mono cursor-pointer transition-all duration-200 z-20"
+          className="relative inline-block text-2xl md:text-3xl font-mono cursor-pointer transition-all duration-200 z-[101]"
           style={{
             opacity: isHovered ? 1 : 0.85,
-            textShadow: isHovered
-              ? "0 0 20px currentColor"
-              : "none",
+            textShadow: isHovered ? "0 0 20px currentColor" : "none",
           }}
         >
           {keyword}
@@ -52,15 +47,12 @@ export default function ProjectLink({
         {/* Hover reveal - image and info */}
         {isHovered && (
           <div
-            className="fixed z-30 pointer-events-none"
+            className="fixed z-[102] pointer-events-none left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
             style={{
-              left: "55%",
-              top: "50%",
-              transform: "translate(-50%, -50%)",
-              width: "clamp(300px, 40vw, 500px)",
+              width: "clamp(320px, 45vw, 550px)",
             }}
           >
-            <div className="bg-[#FFFBEF] dark:bg-[#302D29] rounded-2xl overflow-hidden border border-[#295BA8]/20 dark:border-[#9B7FC9]/20 shadow-2xl animate-in fade-in slide-in-from-right-4 duration-200">
+            <div className="bg-[#FFFBEF] dark:bg-[#302D29] rounded-2xl overflow-hidden border border-[#295BA8]/20 dark:border-[#9B7FC9]/20 shadow-2xl">
               {/* Image */}
               <div className="relative w-full aspect-[4/3]">
                 <Image
@@ -68,6 +60,7 @@ export default function ProjectLink({
                   alt={title}
                   fill
                   className="object-cover"
+                  priority
                 />
               </div>
 
