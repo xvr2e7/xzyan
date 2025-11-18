@@ -7,6 +7,9 @@
 /.next/
 /out/
 
+# TypeScript build cache
+*.tsbuildinfo
+
 # Production env files
 .env*
 !.env.example
