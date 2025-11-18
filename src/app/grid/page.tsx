@@ -1,6 +1,5 @@
-import ThemeToggle from "@/components/ThemeToggle";
-import ProjectCard from "@/components/ProjectCard";
 import Link from "next/link";
+import ProjectCard from "@/components/ProjectCard";
 
 export default function GridPage() {
   const projects = [
@@ -50,44 +49,34 @@ export default function GridPage() {
   ];
 
   return (
-    <div className="min-h-screen flex flex-col">
-      {/* Theme toggle */}
-      <div className="fixed top-5 right-5 z-50">
-        <ThemeToggle />
-      </div>
-
-      {/* Back link - top-left */}
-      <div className="fixed top-8 left-8 z-20">
+    <div className="min-h-screen p-4 sm:p-6 md:p-8">
+      {/* Back arrow - top-left */}
+      <div className="fixed top-4 right-4 z-20">
         <Link
           href="/"
-          className="block text-sm font-semibold tracking-wide opacity-70 hover:opacity-100 transition-opacity"
+          className="block text-sm opacity-70 hover:opacity-100 transition-opacity"
+          aria-label="Back to home"
         >
-          ← HOME
+          back
         </Link>
       </div>
 
-      <main className="flex-1 overflow-hidden p-4 sm:p-6 md:p-8 pb-20">
-        <div className="max-w-[1400px] mx-auto h-full">
-          {/* Grid of projects */}
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 auto-rows-[200px] md:auto-rows-[220px] lg:auto-rows-[240px]">
-            {projects.map((p, i) => (
-              <ProjectCard
-                key={i}
-                title={p.title}
-                tags={p.tags}
-                imageSrc={p.imageSrc}
-                link={p.link}
-                size={p.size}
-              />
-            ))}
-          </div>
+      {/* Grid of projects */}
+      <div className="max-w-[1400px] mx-auto">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 auto-rows-[200px] md:auto-rows-[220px] lg:auto-rows-[240px]">
+          {projects.map((p, i) => (
+            <ProjectCard
+              key={i}
+              title={p.title}
+              tags={p.tags}
+              imageSrc={p.imageSrc}
+              link={p.link}
+              size={p.size}
+              priority={i < 3}
+            />
+          ))}
         </div>
-      </main>
-
-      {/* Footer */}
-      <footer className="fixed inset-x-0 bottom-2 text-center text-[11px] opacity-40 pointer-events-none">
-        &copy; 2025 Ziyan Xie
-      </footer>
+      </div>
     </div>
   );
 }

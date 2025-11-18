@@ -11,10 +11,8 @@ export default function WIPPage() {
       <div className="w-full max-w-4xl flex flex-col items-center">
         <div className="text-center space-y-6">
           <div className="space-y-2">
-            <p className="text-base md:text-lg opacity-80">
-              Not ready for encounter yet.
-            </p>
-            <p className="text-sm opacity-60">Check back soon.</p>
+            <p className="text-base md:text-lg opacity-80">Check back soon.</p>
+            <p className="text-sm opacity-60">soup soup soup soon soup</p>
           </div>
 
           <Link
@@ -33,7 +31,7 @@ export default function WIPPage() {
             >
               <path d="M19 12H5M12 19l-7-7 7-7" />
             </svg>
-            Back to Bio
+            back
           </Link>
         </div>
       </div>

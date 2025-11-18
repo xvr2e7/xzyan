@@ -47,7 +47,7 @@ export default function ProjectLink({
           href={link}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
-          className="relative inline-block text-2xl md:text-3xl font-mono cursor-pointer transition-all duration-200 z-[201]"
+          className="relative inline-block text-lg md:text-xl font-mono cursor-pointer transition-all duration-200 z-[201]"
           style={{
             opacity: isHovered ? 1 : 0.85,
             textShadow: isHovered ? "0 0 20px currentColor" : "none",
@@ -59,14 +59,19 @@ export default function ProjectLink({
         {/* Hover reveal - image and info */}
         {isHovered && (
           <div
-            className="fixed z-[202] pointer-events-none left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+            className="fixed z-[202] pointer-events-none"
             style={{
-              width: "clamp(280px, 35vw, 420px)",
+              left: "50%",
+              top: "50%",
+              transform: "translate(-50%, -50%)",
+              maxHeight: "60vh",
+              maxWidth: "min(80vw, 340px)",
+              width: "clamp(240px, 28vw, 340px)",
             }}
           >
-            <div className="bg-[#FFFBEF] dark:bg-[#302D29] rounded-2xl overflow-hidden border border-[#295BA8]/20 dark:border-[#9B7FC9]/20 shadow-2xl">
+            <div className="bg-[#FFFBEF] dark:bg-[#302D29] rounded-2xl overflow-hidden border border-[#295BA8]/20 dark:border-[#9B7FC9]/20 shadow-2xl flex flex-col h-full">
               {/* Image */}
-              <div className="relative w-full aspect-[4/3]">
+              <div className="relative w-full aspect-[4/3] flex-shrink-0">
                 <Image
                   src={imageSrc}
                   alt={title}
@@ -76,19 +81,23 @@ export default function ProjectLink({
                 />
               </div>
 
-              {/* Info */}
-              <div className="p-6">
-                <h3 className="text-lg font-semibold mb-2">{title}</h3>
+              {/* Info - scrollable if needed */}
+              <div className="p-3 overflow-y-auto flex-1 min-h-0">
+                <h3 className="text-sm font-semibold mb-1.5 leading-tight line-clamp-2">
+                  {title}
+                </h3>
 
                 {description && (
-                  <p className="text-sm opacity-80 mb-3">{description}</p>
+                  <p className="text-[11px] opacity-80 mb-2 leading-relaxed line-clamp-3">
+                    {description}
+                  </p>
                 )}
 
-                <div className="flex gap-2 flex-wrap">
+                <div className="flex gap-1 flex-wrap">
                   {tags.map((tag, index) => (
                     <span
                       key={index}
-                      className="text-xs px-2 py-1 rounded-md bg-[#295BA8]/10 dark:bg-[#9B7FC9]/10 border border-[#295BA8]/20 dark:border-[#9B7FC9]/20"
+                      className="text-[9px] px-1.5 py-0.5 rounded-md bg-[#295BA8]/10 dark:bg-[#9B7FC9]/10 border border-[#295BA8]/20 dark:border-[#9B7FC9]/20 whitespace-nowrap"
                     >
                       {tag}
                     </span>

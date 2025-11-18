@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ThemeToggle from "@/components/ThemeToggle";
 import ProjectLink from "@/components/ProjectLink";
 import Image from "next/image";
@@ -8,12 +8,14 @@ import Image from "next/image";
 export default function BioPage() {
   const [showPortrait, setShowPortrait] = useState(false);
   const [isAnyHovered, setIsAnyHovered] = useState(false);
+  const [currentRotation, setCurrentRotation] = useState(0);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   const projects = [
     {
       keyword: "cycloid",
       title: "Stereokinetic trefoil in VR",
-      description: "Exploring depth perception through rotating 2D patterns",
+      description: "Measuring perceived depth of rotating 2D shape",
       tags: ["VR", "Perception", "Psychophysics"],
       imageSrc: "/trefoil.gif",
       link: "/wip",
@@ -21,7 +23,7 @@ export default function BioPage() {
     {
       keyword: "mushroom",
       title: "Gamification on visual analytics in VR",
-      description: "Making data exploration playful through collection mechanics",
+      description: "Eye-tracking study of playful data exploration",
       tags: ["VR", "Gamification", "Data-Viz", "HCI"],
       imageSrc: "/mushroom.jpg",
       link: "/wip",
@@ -29,31 +31,31 @@ export default function BioPage() {
     {
       keyword: "poodle",
       title: "POiT: words connecting worlds",
-      description: "A poetic interface for serendipitous discovery",
+      description: "Interface for poetic connections",
       tags: ["Web", "Poetry", "HCI"],
       imageSrc: "/poit.gif",
       link: "https://poit.xzyan.com",
     },
     {
       keyword: "rotorelief",
-      title: "Motion-based geometric optimization for video models",
-      description: "Perceptual constraints inspired by Duchamp's rotating discs",
-      tags: ["CV", "Video", "Optimization", "ML"],
+      title: "3D illusion recovery for vision models",
+      description: "Teaching machines to have visual illusions",
+      tags: ["CV", "Optimization", "ML"],
       imageSrc: "/mopp.gif",
       link: "/wip",
     },
     {
       keyword: "questioning",
       title: "The Questions Concerning Video Game",
-      description: "Heidegger meets gaming: embodiment, virtuality, resistance",
+      description: "Teaching an undergrad seminar at UCLA",
       tags: ["Teaching", "Video Game", "Media Studies"],
       imageSrc: "/88s.gif",
       link: "https://xvr2e7.github.io/elts-88s/",
     },
     {
-      keyword: "chairness",
+      keyword: "chair",
       title: "Chairness",
-      description: "Generated explorations of what makes a chair a chair",
+      description: "What makes a chair a chair for GAN",
       tags: ["Generative", "3D", "ML", "Art"],
       imageSrc: "/chairs.gif",
       link: "/wip",
@@ -61,8 +63,47 @@ export default function BioPage() {
   ];
 
   // Calculate positions for ferris wheel arrangement
-  const radius = 280; // Distance from center
+  const radius = 320; // Distance from center
   const angleStep = (Math.PI * 2) / projects.length;
+
+  // Track mouse position for subtle rotation influence
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      const x = (e.clientX / window.innerWidth - 0.5) * 2; // -1 to 1
+      const y = (e.clientY / window.innerHeight - 0.5) * 2; // -1 to 1
+      setMousePosition({ x, y });
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, []);
+
+  // Auto-rotation when not hovered
+  useEffect(() => {
+    let animationFrame: number;
+    let lastTime = Date.now();
+
+    const animate = () => {
+      if (!isAnyHovered) {
+        const now = Date.now();
+        const delta = (now - lastTime) / 1000;
+        lastTime = now;
+
+        // Very slow base rotation + subtle mouse influence (clamped)
+        const mouseInfluence = Math.max(
+          -0.05,
+          Math.min(0.05, mousePosition.x * 0.05)
+        );
+        setCurrentRotation((prev) => prev + delta * (0.08 + mouseInfluence));
+      } else {
+        lastTime = Date.now(); // Keep time updated when paused
+      }
+      animationFrame = requestAnimationFrame(animate);
+    };
+
+    animationFrame = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(animationFrame);
+  }, [isAnyHovered, mousePosition]);
 
   return (
     <div className="min-h-screen relative overflow-hidden">
@@ -77,7 +118,7 @@ export default function BioPage() {
           href="/wip"
           className="block text-sm font-semibold tracking-wide opacity-70 hover:opacity-100 transition-opacity"
         >
-          → NOW
+          NOW
         </a>
       </div>
 
@@ -92,7 +133,6 @@ export default function BioPage() {
               onMouseLeave={() => setShowPortrait(false)}
             >
               Ziyan Xie
-
               {/* Portrait on hover */}
               {showPortrait && (
                 <div className="absolute left-1/2 -translate-x-1/2 -top-32 w-24 h-24 rounded-full overflow-hidden border-2 border-[#295BA8]/30 dark:border-[#9B7FC9]/30 shadow-2xl animate-in fade-in zoom-in-95 duration-200">
@@ -106,10 +146,12 @@ export default function BioPage() {
               )}
             </h1>
 
-            <p className="text-sm opacity-60 mb-4">Senior Undergraduate at UCLA</p>
+            <p className="text-sm opacity-60 mb-4">
+              Senior Undergraduate at UCLA
+            </p>
 
             <p className="text-sm leading-relaxed opacity-90 mb-6 max-w-md mx-auto">
-              human/machine perception · mediated realities · interaction design
+              human/machine vision · mediated realities
             </p>
 
             {/* Contact links */}
@@ -152,9 +194,10 @@ export default function BioPage() {
 
           {/* Ferris wheel - projects rotating around bio */}
           <div
-            className="absolute inset-0 pointer-events-none transition-transform duration-1000 ease-linear"
+            className="absolute inset-0 pointer-events-none"
             style={{
-              animation: isAnyHovered ? 'none' : 'ferrisWheel 60s linear infinite',
+              transform: `rotate(${currentRotation}rad)`,
+              transition: "none",
             }}
           >
             {projects.map((project, index) => {
@@ -169,13 +212,10 @@ export default function BioPage() {
                   style={{
                     left: "50%",
                     top: "50%",
-                    transform: `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))`,
+                    transform: `translate(calc(-50% + ${x}px), calc(-50% + ${y}px)) rotate(${-currentRotation}rad)`,
                   }}
                 >
-                  <ProjectLink
-                    {...project}
-                    onHoverChange={setIsAnyHovered}
-                  />
+                  <ProjectLink {...project} onHoverChange={setIsAnyHovered} />
                 </div>
               );
             })}
@@ -183,13 +223,13 @@ export default function BioPage() {
         </div>
       </main>
 
-      {/* Grid view link - bottom-left */}
+      {/* Straight-on view link - bottom-left */}
       <div className="fixed bottom-8 left-8 z-20">
         <a
           href="/grid"
           className="block text-sm font-semibold tracking-wide opacity-70 hover:opacity-100 transition-opacity"
         >
-          ⊞ GRID
+          STRAIGHT-ON
         </a>
       </div>
 
